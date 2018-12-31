@@ -1,0 +1,53 @@
+.img-file-thumbnail {
+    margin-right: 10px;
+    width: 30px;
+    height: 25px;
+}
+
+.fixed-pos {
+    position: fixed;
+}
+
+.stretch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding-left: 50%;
+    padding-top: 20%;
+    z-index: 999;
+}
+
+.title-bar {
+    width: 100%;
+    height: 60px;
+    background-color: #608b92;;
+}
+
+.tool-bar {
+    position: relative;
+    width: 100%;
+    height: 64px;
+    left: 60px;
+    padding: 10px;
+}
+
+#main_component {
+    margin-left: 60px;
+}
+
+.left-pane {
+    top: 0;
+    left: 0;
+    position: absolute;
+    background-color: #608b92;;
+    width: 60px;
+}
+
+.title-text {
+    margin-left: 60px;
+    width: 100%;
+    padding: 8px;
+    color: white;
+}

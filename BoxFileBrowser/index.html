@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.css">
+    <link rel="stylesheet" href="css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="css/fileBrowser.css">
+    <script type="text/javascript" src="js/bootstrap.bundle.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/restUtils.js"></script>
+    <script type="text/javascript" src="js/download.js"></script>
+    <script type="text/javascript" src="js/onClickActions.js"></script>
+</head>
+<body>
+
+    <div class="title-bar">
+        <h3 class="title-text">File Manager -> Box.com</h3>
+    </div>
+    <div class="tool-bar">
+        <div class="row">
+            <div id="path_tool" class="col-md-6">
+                <a></a>
+            </div>
+            <div class="col-md-6">
+                <form id="uploadForm" action="http://localhost:2000/uploadFile?path=/data/testfailtests.PNG" method="post" enctype="multipart/form-data">
+                    <input type="file" name="fileupload" id="fileupload" required>
+                    <button id="btnSubmit" type="submit" class="btn btn-primary">Upload</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="left-pane" id="left_pane"></div>
+
+    <div id="main_component">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-md-4">Name</div>
+                    <div class="col-md-4">updated</div>
+                    <div class="col-md-4">size</div>
+                </div>
+            </li>
+        </ul>
+        <div class="list-group" id="listDir"></div>
+    </div>
+    <div id="loading_component" class="stretch">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <script>
+        var startObj = {};
+        startObj.id = encodeURI('{"path":"/", "directory":true}');
+        getFolderContents(startObj);
+
+        $("#btnSubmit").click(function (event) {
+
+            event.preventDefault();
+            var file = $('#fileupload')[0].files[0];
+            if(!file) {
+                alert("Please select file");
+                return;
+            }
+            var form = $('#uploadForm')[0];
+            var data = new FormData(form);
+            $("#btnSubmit").prop("disabled", true);
+            var url = "http://localhost:2000/uploadFile?path=" + getCurrentPath();
+            if(getCurrentPath() != "/") {
+                url += "/"
+            }
+            url += file.name;
+
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: url,
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                success: function (data) {
+
+                    alert("upload success");
+                    $("#btnSubmit").prop("disabled", false);
+                    var obj = {};
+                    obj.id = getCurrentPath();
+                    getFolderContentsClickedFromPathTool(obj);
+                },
+                error: function (e) {
+
+                    alert("upload failed");
+                    $("#btnSubmit").prop("disabled", false);
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>

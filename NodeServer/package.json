@@ -1,0 +1,24 @@
+{
+  "name": "nodeserver",
+  "version": "1.0.0",
+  "description": "Node server to serve artifacts in Jenkins layout to facilitate test job",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "busboy": "^0.2.14",
+    "connect-form": "^0.2.1",
+    "express": "4.13.1",
+    "fs": "0.0.1-security",
+    "gm": "^1.23.1",
+    "multer": "^1.4.1",
+    "multiparty": "^4.2.1",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
